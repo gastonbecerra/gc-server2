@@ -8,24 +8,34 @@ varsRouter.get('/', async (req, res)=>{
 })
 
 varsRouter.post('/', async (req, res)=>{    
-    const {name,type,description,timeframe,created,user,tags} = req.body.data;
+    const {
+      name,
+      type,
+      description,
+      timeframe,
+      user,
+      measurement,
+      tags,
+      created
+    } = req.body.data;
     
     const newVar = new Var({
-        name,
-        type,
-        description,
-        timeframe,
-        created,
-        user,
-        tags
+      name,
+      type,
+      description,
+      timeframe,
+      user,
+      measurement,
+      tags,
+      created
     })
 
     newVar.save()
-    .then((data)=>{
-        res.send(data)
+    .then((res)=>{
+        res.send(res)
     })
-    .catch((e)=>{
-        res.status(404).send(e);
+    .catch((res)=>{
+        res.send({e: e, res});
     })
 })
 
@@ -36,7 +46,7 @@ varsRouter.put('/:id', async  (req, res, next)=>{
     if (error) {
       return next(error);
     } else {
-      res.json(true)
+      res.send(data)
     }
   })
 })

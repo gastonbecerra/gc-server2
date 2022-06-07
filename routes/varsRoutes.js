@@ -42,7 +42,7 @@ varsRouter.post('/', async (req, res)=>{
 varsRouter.put('/:id', async  (req, res, next)=>{
   Var.findByIdAndUpdate(req.params.id, {
     $set: req.body.data
-  }, (error, data) => {
+  }, { new: true },(error, data) => {
     if (error) {
       return next(error);
     } else {

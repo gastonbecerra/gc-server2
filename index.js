@@ -27,14 +27,16 @@ mongoose.connect(process.env.MONGOURL,
     .then(()=> console.log('CONECTED TO MONGO ATLAS'))
     .catch(err => console.log(err, 'ERROR'))
 
-const testRoutes = require('./routes/test')
-const sheetRouter = require('./routes/sheetsRoutes')
-const varsRouter = require('./routes/varsRoutes')
-const contextsRouter = require('./routes/contextsRoutes')
+const testRoutes = require('./routes/test');
+const sheetRouter = require('./routes/sheetsRoutes');
+const varsRouter = require('./routes/varsRoutes');
+const contextsRouter = require('./routes/contextsRoutes');
+const loginRouter = require('./routes/login');
 app.use('/test', testRoutes);
 app.use('/sheets', sheetRouter);
 app.use('/vars', varsRouter);
 app.use('/contexts', contextsRouter);
+app.use('/login', loginRouter);
 
 app.use(express.urlencoded({extended: true}))
 

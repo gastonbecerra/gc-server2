@@ -51,4 +51,9 @@ varsRouter.put('/:id', async  (req, res, next)=>{
   })
 })
 
+
+varsRouter.delete('/:var_id/:user_id', async (req, res)=>{
+  res.send(await Var.deleteOne({_id: req.params.var_id}));
+})
+
 module.exports = varsRouter;

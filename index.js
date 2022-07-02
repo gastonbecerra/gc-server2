@@ -40,4 +40,7 @@ app.use('/login', loginRouter);
 
 app.use(express.urlencoded({extended: true}))
 
+app.on('error', function(e){
+    console.log(e);
+})
 app.listen(8080)

@@ -34,8 +34,8 @@ varsRouter.post('/', async (req, res)=>{
     .then((res)=>{
         res.send(res)
     })
-    .catch((res)=>{
-        res.send({e: e, res});
+    .catch((e)=>{
+        res.send({e: e});
     })
 })
 

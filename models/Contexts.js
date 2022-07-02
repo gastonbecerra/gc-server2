@@ -8,7 +8,14 @@ const ContextsSchema = new mongoose.Schema({
     circunscribed: {},
     tags: {},
     created: {},
-    user: {},
+    user: {
+        type: String,
+        default: '629fda217f9dde18926c12a7'
+    },
+    samples: {
+        type: {},
+        default: 0
+    }
 })
 
 const Context = mongoose.model("Context", ContextsSchema, "contexts");

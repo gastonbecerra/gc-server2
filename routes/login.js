@@ -53,7 +53,7 @@ loginRouter.post('/signin', async (req,res)=>{
             email: email
         })
         
-        if( user.length === 0 ){
+        if( !user ){
             throw new Error('User dosnt exist');
         }else{
             const valid = await bcrypt.compare(password, user[0].password);

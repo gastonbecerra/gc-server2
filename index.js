@@ -30,13 +30,18 @@ mongoose.connect(process.env.MONGOURL,
 const testRoutes = require('./routes/test');
 const sheetRouter = require('./routes/sheetsRoutes');
 const varsRouter = require('./routes/varsRoutes');
+const valuesRouter = require('./routes/valuesRoutes');
 const contextsRouter = require('./routes/contextsRoutes');
 const loginRouter = require('./routes/login');
-app.use('/test', testRoutes);
-app.use('/sheets', sheetRouter);
-app.use('/vars', varsRouter);
-app.use('/contexts', contextsRouter);
+const metaRouter = require('./routes/metaCrud');
+
+app.use('/', metaRouter);
 app.use('/login', loginRouter);
+app.use('/values', valuesRouter);
+// app.use('/test', testRoutes);
+// app.use('/sheets', sheetRouter);
+// app.use('/vars', varsRouter);
+// app.use('/contexts', contextsRouter);
 
 app.use(express.urlencoded({extended: true}))
 

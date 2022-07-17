@@ -1,32 +1,42 @@
 var mongoose = require('mongoose');
 
 const VarsSchema = new mongoose.Schema({
-    name: { 
-
+    hashtag : {
+        type: {}
     },
-    type: { },
-    description: {  },
-    timeframe: { }, 
-    user: { 
-        type: String,
-        default: '629fda217f9dde18926c12a7'
+    name: {
+        type: {}
     },
-    measurement: { },
-    tags: { },
-    created: {
-
+    category : {
+        type: {}
     },
-    values: {
-        
+    timeframe : {
+        type: {}
     },
-    dashboards: {
-
+    scale : {
+        type: {}
+    },
+    concept : {
+        type: {}
+    },
+    privacy : {
+        type: {}
+    },
+    description : {
+        type: {}
+    } ,
+    key : {
+        type: {}
+    },
+    user : {
+        type: {}
+    } ,
+    timestamp : {
+        type: Date,
+        default: Date.now()
     },
     followers: {
-        
-    },
-    childs:{
-        
+        type: {}
     }
 })
 

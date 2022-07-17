@@ -3,7 +3,7 @@ const secret_token = process.env.SECRET_TOKEN;
 var express = require('express');
 var loginRouter = express.Router();
 var bcrypt = require('bcrypt');
-var User = require('../models/User')
+var User = require('../models/Users')
 
 function generateToken(user) {
     return jwt.sign({ data : user }, secret_token, { expiresIn: '24h'})

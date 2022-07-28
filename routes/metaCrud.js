@@ -134,6 +134,7 @@ crudRouter.put("/:type/:id", async (req, res) => {
 
 //DELETE DOCUMENT
 crudRouter.delete("/:type/:id", async (req, res) => {
+  console.log(req.params.id);
   var Model = returnModel(req.params.type);
   Model.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {

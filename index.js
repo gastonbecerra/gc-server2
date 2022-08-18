@@ -1,4 +1,4 @@
-require('dotenv').config()
+ require('dotenv').config()
 var express = require('express');
 var app = express();
 var router = express.Router();
@@ -27,17 +27,18 @@ mongoose.connect(process.env.MONGOURL,
     .then(()=> console.log('CONECTED TO MONGO ATLAS'))
     .catch(err => console.log(err, 'ERROR'))
 
-const testRoutes = require('./routes/test');
-const sheetRouter = require('./routes/sheetsRoutes');
-const varsRouter = require('./routes/varsRoutes');
-const valuesRouter = require('./routes/valuesRoutes');
+// const testRoutes = require('./routes/test');
+// const sheetRouter = require('./routes/sheetsRoutes');
+// const varsRouter = require('./routes/varsRoutes');
+// const valuesRouter = require('./routes/valuesRoutes');
 const contextsRouter = require('./routes/contextsRoutes');
 const loginRouter = require('./routes/login');
 const metaRouter = require('./routes/metaCrud');
 
 app.use('/', metaRouter);
+app.use('/api-v2/', contextsRouter);
 app.use('/login', loginRouter);
-app.use('/values', valuesRouter);
+// app.use('/values', valuesRouter);
 // app.use('/test', testRoutes);
 // app.use('/sheets', sheetRouter);
 // app.use('/vars', varsRouter);

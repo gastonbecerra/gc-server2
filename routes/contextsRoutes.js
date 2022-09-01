@@ -15,19 +15,19 @@ async function get_users_by_rules( rules ) {
         if (element.operation == "gt") { conditions.push( { var: element.variable, value: { $gt: element.value } } ) }
         if (element.operation == "eq") { conditions.push( { var: element.variable, value: element.value } ) }
     });
-    // console.log (conditions)
-    // const vals = await Value.find(conditions[0]) // 2do: eso [0] fue la manera de darle forma de json. un desastre
+    console.log (conditions)
+    const vals = await Value.find(conditions[0]) // 2do: eso [0] fue la manera de darle forma de json. un desastre
     // 2do: armo condicion a mano para poder testear la busqueda. falta ver como convertir a objeto
     
     // 2do: la busqueda deberia especificar:
     // - que queremos valores dentro de una expiration date LISTO
     // - que queremos usuarios unicos FILTRADO ABAJO
     var expired_date = Date.now() - 50 * 24 * 60 * 60 * 1000; // 50 dias antes de la fecha actual
-    const vals = await Value.find({
-        var: 'daily spendings on veggies (currency (ARS))',
-        value: { '$gt': '1' },
-        timestamp: { $gte : new Date(expired_date) } // expiracion para no tomar miles de datos
-    })
+    // const vals = await Value.find({
+    //     var: 'daily spendings on veggies (currency (ARS))',
+    //     value: { '$gt': '1' },
+    //     timestamp: { $gte : new Date(expired_date) } // expiracion para no tomar miles de datos
+    // })
     var users = []
     vals.forEach(element => {
         if (!users.includes(element.user)) {
@@ -125,22 +125,19 @@ async function create_sample( context, variable ) {
     }
 
     var sample_return = {
-        context: context,
-        variable: variable,
+        context,
+        variable,
         data: sample_data,
         created: new Date(), // cuando?
         cantidad_perfiles: 0                    
     }  
-
-    const new_sample = await Sample.create(sample_return, function(err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("** sample saved ---- 2do pero aca este valor no esta volviendo al endpoint");
-            console.log(data);
-            return(data);   // 2do: esto no está devolviendo... llega undefined
-        }
-    })
+    try{
+        const new_sample = await Sample.create(sample_return);
+        return new_sample;
+    }catch(err){
+        console.log('locura maxima del error locuencio')
+        return(err);
+    }
 }
 
 contextsRouter.get("/sample/:context_id/:var_id", async (req, res)=> {
@@ -171,9 +168,18 @@ contextsRouter.get("/sample/:context_id/:var_id", async (req, res)=> {
     }
 
     if (create_new_sample) {
-        var new_sample = await create_sample(req.params.context_id, req.params.var_id);
-        console.log(new_sample); // 2do: aca esta volviendo undefined... o no será el tipo de objeto que quiero
-        res.send(new_sample);
+        create_sample(req.params.context_id, req.params.var_id)
+        .then((new_sample) => {
+            console.log("message new sample created");
+            res.send(new_sample);            
+        })
+        .finally((new_sample) => {
+            console.log("finally");
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(err)
+        })
     }    
 
 }),

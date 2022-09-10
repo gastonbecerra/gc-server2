@@ -100,8 +100,10 @@ crudRouter.post('/values/:user_id', async (req, res)=>{
 //POST NEW DOCUMENT
 crudRouter.post("/:type", async (req, res) => {
   var Model = returnModel(req.params.type);
-  const { ...props } = req.body.data;
-  var document = new Model(props);
+  const { ...data } = req.body;
+  console.log(data)
+  // res.send(data);
+  var document = new Model(data);
   document
     .save()
     .then((response) => {
